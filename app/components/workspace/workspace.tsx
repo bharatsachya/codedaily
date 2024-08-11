@@ -1,11 +1,16 @@
-import react from 'react'
-
+import React from 'react';
+import Split from 'react-split';
+import ProblemDescription from './ProblemDescription/ProblemDescription';
+import PlayGround from '@/app/components/workspace/playground/playground';
 const Workspace = () => {
     return (
-        <div>
-            <h1>Workspace</h1>
-        </div>
-    )
+      <>
+        <Split className='split' minSize={0}>
+            <ProblemDescription />
+            <PlayGround/>
+        </Split>
+      </>
+    );
 }
 
-export default Workspace
+export default Workspace;
