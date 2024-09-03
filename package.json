@@ -9,7 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@codemirror/lang-cpp": "^6.0.2",
+    "@codemirror/lang-javascript": "^6.2.2",
     "@stripe/stripe-js": "^3.4.1",
+    "@uiw/codemirror-theme-vscode": "^4.23.0",
+    "@uiw/react-codemirror": "^4.23.0",
+    "assert": "^2.1.0",
+    "assets": "^3.0.1",
     "firebase": "^10.11.0",
     "firebase-hooks": "^0.0.1",
     "link": "^2.1.0",
