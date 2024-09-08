@@ -1,3 +1,4 @@
+"use client"
 import react from 'react';
 import Link from 'next/link';
 import { auth } from '../firebase/firebase';

@@ -1,3 +1,4 @@
+"use client";
 import react from 'react';
 import LuTimer from 'react-icons/lu'
 import { useState } from 'react';

@@ -6,17 +6,24 @@ import Link from 'next/link'
 import { AiFillYoutube } from "react-icons/ai";
 import { GiClosedBarbute } from "react-icons/gi";
 import { LuTimer } from "react-icons/lu";
+import { query } from "firebase/firestore";
+import { collection } from "firebase/firestore";
+import { firestore } from "@/app/firebase/firebase";
+type ProblemTableProps = {
+    setLoading ?: (loading:boolean)=>void
+}
 
 import YouTube from 'react-youtube';
-const ProblemTable = () => {
+const ProblemTable:React.FC<ProblemTableProps> = ({setLoading}) => {
    const [youtube, setYoutube] = react.useState({
     isOpen: false,
     videoId: ""
    })
+   const problems = getProblems(setLoading)
    useEffect(()=>{
         window.addEventListener('keydown', (e:KeyboardEvent)=>{
             if(e.key === 'Escape'){
-                setYoutube({isOpen:false,videoId:""})
+               setYoutube({isOpen:false,videoId:""})
             }
         })
    },[])
@@ -69,3 +76,16 @@ const ProblemTable = () => {
 
 export default ProblemTable
 
+
+const getProblems = (setLoading:(loading:boolean)=>void) => {
+    const [problems, setProblems] = react.useState([])
+    useEffect(()=>{
+        const getProblem = async () => {
+            setLoading(true)
+            const q = query(collection(firestore, 'problems'))
+        }
+
+        getProblem()
+     },[])
+
+}
