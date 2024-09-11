@@ -1,56 +1,58 @@
-import { problems } from "@/app/mockProblems/problem"
-import react, { useEffect } from "react"
+import { problems,Problem } from "@/app/mockProblems/problem"
+import react, { use, useEffect, useState } from "react"
 import { LuPanelTopClose } from "react-icons/lu";
 import { BsCheckCircle } from "react-icons/bs";
 import Link from 'next/link'
 import { AiFillYoutube } from "react-icons/ai";
 import { GiClosedBarbute } from "react-icons/gi";
 import { LuTimer } from "react-icons/lu";
-import { query } from "firebase/firestore";
-import { collection } from "firebase/firestore";
-import { firestore } from "@/app/firebase/firebase";
+
 type ProblemTableProps = {
-    setLoading ?: (loading:boolean)=>void
+    setLoading : React.Dispatch<React.SetStateAction<boolean>>
 }
 
 import YouTube from 'react-youtube';
+import React from "react";
+import { collection, getDoc, getDocs, orderBy, query } from "firebase/firestore";
+import { firestore } from "@/app/firebase/firebase";
+import { Anybody } from "next/font/google";
 const ProblemTable:React.FC<ProblemTableProps> = ({setLoading}) => {
    const [youtube, setYoutube] = react.useState({
     isOpen: false,
     videoId: ""
    })
-   const problems = getProblems(setLoading)
    useEffect(()=>{
         window.addEventListener('keydown', (e:KeyboardEvent)=>{
             if(e.key === 'Escape'){
-               setYoutube({isOpen:false,videoId:""})
+                setYoutube({isOpen:false,videoId:""})
             }
         })
    },[])
+   const problems = useGetProblems(setLoading);
   return <>
       <tbody className="text-white">
     {
-        problems.map((doc,idx)=>{
-            const difficultyColor = doc.difficulty === 'Easy' ? 'text-green-500' : doc.difficulty === 'Medium' ? 'text-yellow-500' : 'text-red-500'
+        problems.map((problem,idx)=>{
+            const difficultyColor = problem.difficulty === 'Easy' ? 'text-green-500' : problem.difficulty === 'Medium' ? 'text-yellow-500' : 'text-red-500'
             return(
-                <tr className={`${idx%2==0 ? 'bg-gray-700' :''}`}  key={doc.id}>
+                <tr className={`${idx%2==0 ? 'bg-gray-700' :''}`}  key={problem.id}>
                     <td className="px-2 py-4 font-sans text-sm whitespace-nowrap text-green-400 ">
                         <BsCheckCircle fontSize={"19"} width="18"/>
                     </td>
                     <td className="px-6 py-4">
-                        <Link className="hover:text-blue-600 " href={`/problems/${doc.id}`}>
-                            {doc.title}
+                        <Link className="hover:text-blue-600 " href={`/problems/${problem.id}`}>
+                            {problem.title} 
                         </Link>
                     </td>
                     <td className={`px-6 py-4 ${difficultyColor}`}>
-                    {doc.difficulty}
+                    {problem.difficulty}
                     </td>
                     <td className="px-6 py-4">
-                    {doc.category}
+                    {problem.category}
                     </td>
                     <td className="px-6 py-4">
-                      {doc.videoId? (<AiFillYoutube className="hover:text-red-600 ease-in ease-out" 
-                      onClick={()=>setYoutube({isOpen:true, videoId:doc.videoId as string})}
+                      {problem.videoId? (<AiFillYoutube className="hover:text-red-600 ease-in ease-out" 
+                      onClick={()=>setYoutube({isOpen:true, videoId:problem.videoId as string})}
                       fontSize={"28"}/>):
                       (<p className="text-gray-400"
                      >Coming soon</p>)}
@@ -76,16 +78,21 @@ const ProblemTable:React.FC<ProblemTableProps> = ({setLoading}) => {
 
 export default ProblemTable
 
-
-const getProblems = (setLoading:(loading:boolean)=>void) => {
-    const [problems, setProblems] = react.useState([])
+const useGetProblems = (setLoading:React.Dispatch<React.SetStateAction<boolean>>) =>{
+    const [problems,setProblem] = useState<Problem[]>([])
     useEffect(()=>{
-        const getProblem = async () => {
+        const getProblem = async() =>{
             setLoading(true)
-            const q = query(collection(firestore, 'problems'))
+            const q = query(collection(firestore,"problems"),orderBy("order","asc"))
+            const querySnapshot = await getDocs(q)
+            const tmp:any = []
+            querySnapshot.forEach((doc)=>{
+                tmp.push({id:doc.id,...doc.data()})
+            })
+            setProblem(tmp)
+            setLoading(false)
         }
-
-        getProblem()
-     },[])
-
+            getProblem()
+    },[setLoading])
+    return problems      
 }
