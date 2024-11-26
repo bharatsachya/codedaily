@@ -25,8 +25,7 @@ const ProblemPage: React.FC<ProblemPageProps> = ({ params }) => {
     if (!problem) {
         notFound();
     }
-
-    console.log(problem);  // This will log the problem to the terminal if server-side or browser if client-side.
+    // console.log(problem);  // This will log the problem to the terminal if server-side or browser if client-side.
     problem.handlerFunction = problem.handlerFunction.toString();
     return (
         <>
