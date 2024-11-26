@@ -1,4 +1,4 @@
-import { problems,Problem } from "@/app/mockProblems/problem"
+import { problems,DBProblem } from "@/app/mockProblems/problem"
 import react, { use, useEffect, useState } from "react"
 import { LuPanelTopClose } from "react-icons/lu";
 import { BsCheckCircle } from "react-icons/bs";
@@ -40,9 +40,14 @@ const ProblemTable:React.FC<ProblemTableProps> = ({setLoading}) => {
                         <BsCheckCircle fontSize={"19"} width="18"/>
                     </td>
                     <td className="px-6 py-4">
-                        <Link className="hover:text-blue-600 " href={`/problems/${problem.id}`}>
+                        {problem.link ? (
+                         <Link href = {problem.link} className="hover:text-blue-600 " target="_blank">
+                           {problem.title}
+                         </Link>
+                        ):
+                        (<Link className="hover:text-blue-600 " href={`/problems/${problem.id}`}>
                             {problem.title} 
-                        </Link>
+                        </Link>)}
                     </td>
                     <td className={`px-6 py-4 ${difficultyColor}`}>
                     {problem.difficulty}
@@ -79,7 +84,7 @@ const ProblemTable:React.FC<ProblemTableProps> = ({setLoading}) => {
 export default ProblemTable
 
 const useGetProblems = (setLoading:React.Dispatch<React.SetStateAction<boolean>>) =>{
-    const [problems,setProblem] = useState<Problem[]>([])
+    const [problems,setProblem] = useState<DBProblem[]>([])
     useEffect(()=>{
         const getProblem = async() =>{
             setLoading(true)

@@ -9,6 +9,7 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { FaArrowCircleLeft,FaArrowCircleRight } from "react-icons/fa";
 import { LuTimer } from "react-icons/lu";
 import { BsList } from 'react-icons/bs';
+import Image from 'next/image';
 import { AiFillYoutube } from "react-icons/ai";
 import Timer from '@/app/components/timer/timer';
 type Props = {
@@ -16,7 +17,7 @@ type Props = {
 }
 const Topbar: React.FC<Props> = ({ProblemPage}) => {
     const setAuthModalState = useSetRecoilState(authModalState)
-    const user = useAuthState(auth);
+    const [user] = useAuthState(auth);
     const handleClick = () => {
         console.log('clicked');
     }
@@ -70,7 +71,7 @@ const Topbar: React.FC<Props> = ({ProblemPage}) => {
                 </div>
             </button>   
            </Link>
-        {ProblemPage && (<Timer/>)}
+        {user && ProblemPage && (<Timer/>)}
 
 
            {!user && (<Link rel="stylesheet" href="/signin">
@@ -84,16 +85,17 @@ const Topbar: React.FC<Props> = ({ProblemPage}) => {
            <button className='ml-2' onClick={handleclick}>
                <div className="flex">
                <div className='cursor-pointer group relative'>
-                <img src="./Profile.png" alt="user profile" className='w-8 h-8 rounded-full'/>
+               <Image src="/Profile.png" alt="user profile" width={40} height={40} />
+
                <div
-                className='absolute top-10 left-2/4 -translate-x-2/4  mx-auto text-orange-600 p-4 rounded shadow-lg 
+                className='absolute top-10 left-2/4 -translate-x-2/4  mx-auto text-white p-4 rounded shadow-lg 
                 z-40 group-hover:scale-100 scale-0 
                 transition-all duration-300 ease-in-out'
             >
-                <p className='text-sm t'>Error</p>
+                <p className='text-sm'>{user.email}</p>
                 </div>
                 </div>
-                  <div className='p-1 px-2 hover:text-black transition duration-300 ease-in-out text-2xl'>
+                  <div className='py-1 px-2 hover:text-black transition duration-300 ease-in-out text-2xl'>
                <FaSignOutAlt/>
                 </div>
                </div>

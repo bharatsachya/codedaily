@@ -7,6 +7,11 @@ import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import {auth} from '@/app/firebase/firebase'
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
+import { create } from 'domain';
+import {setDoc} from 'firebase/firestore';
+import { firestore } from '@/app/firebase/firebase';
+import { doc } from 'firebase/firestore';
+
 export default function Signup() { 
    const setAuthModalState = useSetRecoilState(authModalState)
   const handleClick = () => {
@@ -22,13 +27,28 @@ export default function Signup() {
     e.preventDefault()
     if(!inputs.email || !inputs.password || !inputs.name) return alert('Please fill all the fields')
      try{
-        const user = await createUserWithEmailAndPassword(inputs.email, inputs.password)         
-        if(!user) return 
+       toast.loading("Creating Your Account",{position:"top-center",theme:"dark",toastId:"loadingToast"})
+        const newUser = await createUserWithEmailAndPassword(inputs.email, inputs.password)         
+        if(!newUser) return 
+        const userData = {
+            uid: newUser.user.uid,
+            email: newUser.user.email,
+            name: newUser.user.displayName,
+            createdAt: Date.now(),
+            updatedAt:Date.now(),
+            LikedProblems:[],
+            SolvedProblems:[],
+            DislikedProblems: []
+        }
+        await setDoc(doc(firestore, 'users', newUser.user.uid),userData) 
         router.push('/')
      }
      catch(error:any){
        toast.error(error.message,{position:"top-center",autoClose:5000,theme:"dark"})
      }    
+     finally{
+      toast.dismiss("loadingToast")
+     }
    }
 
    useEffect(() => {
@@ -63,3 +83,4 @@ export default function Signup() {
    </form>
  </>
 }
+
