@@ -36,27 +36,27 @@ const ProblemTable:React.FC<ProblemTableProps> = ({setLoading}) => {
             const difficultyColor = problem.difficulty === 'Easy' ? 'text-green-500' : problem.difficulty === 'Medium' ? 'text-yellow-500' : 'text-red-500'
             return(
                 <tr className={`${idx%2==0 ? 'bg-gray-700' :''}`}  key={problem.id}>
-                    <td className="px-2 py-4 font-sans text-sm whitespace-nowrap text-green-400 ">
+                    <td className="px-2 py-4 font-sans text-sm whitespace-nowrap text-green-400 animate-fade-down animate-delay-300">
                         <BsCheckCircle fontSize={"19"} width="18"/>
                     </td>
                     <td className="px-6 py-4">
                         {problem.link ? (
-                         <Link href = {problem.link} className="hover:text-blue-600 " target="_blank">
+                         <Link href = {problem.link} className="hover:text-blue-600 animate-fade-down animate-delay-300" target="_blank">
                            {problem.title}
                          </Link>
                         ):
-                        (<Link className="hover:text-blue-600 " href={`/problems/${problem.id}`}>
+                        (<Link className="hover:text-blue-600 animate-fade-down animate-delay-300" href={`/problems/${problem.id}`}>
                             {problem.title} 
                         </Link>)}
                     </td>
-                    <td className={`px-6 py-4 ${difficultyColor}`}>
+                    <td className={`px-6 py-4 ${difficultyColor} animate-fade-down animate-delay-500`}>
                     {problem.difficulty}
                     </td>
-                    <td className="px-6 py-4">
+                    <td className="px-6 py-4 animate-fade-down animate-delay-300">
                     {problem.category}
                     </td>
                     <td className="px-6 py-4">
-                      {problem.videoId? (<AiFillYoutube className="hover:text-red-600 ease-in ease-out" 
+                      {problem.videoId? (<AiFillYoutube className="hover:text-red-600 ease-in-out animate-fade-down animate-delay-300" 
                       onClick={()=>setYoutube({isOpen:true, videoId:problem.videoId as string})}
                       fontSize={"28"}/>):
                       (<p className="text-gray-400"
@@ -67,8 +67,8 @@ const ProblemTable:React.FC<ProblemTableProps> = ({setLoading}) => {
         })
     }
 </tbody>
-   {youtube.isOpen && (<tfoot className="fixed top-0 left-0 w-screen h-screen flex items-center justify-center">
-        <div className="bg-black z-10 opacity-70 top-0 left-0 w-screen h-screen absolute"></div>
+   {youtube.isOpen && (<tfoot className="fixed top-0 down-0 w-screen h-screen flex items-center justify-center">
+        <div className="bg-black z-10 opacity-70 top-0 down-0 w-screen h-screen absolute"></div>
         <div className="W-full z-50 h-full px-6 relative max-w-4xl">
             <div className="w-full h-full flex items-center jutify-center relative">
                 <div className="w-full relative">

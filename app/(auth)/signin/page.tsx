@@ -25,7 +25,7 @@ export default function Signin() {
          <div className="max-w-7xl mx-auto">
          <Navbar/>
         <div className='flex items-center justify-center h-[calc(100vh-5rem)] pointer-events-none select-none animate-fade-left animate-delay-700'>
-              <Image src="/hero.png" alt="hero" />
+              <Image src="/hero.png" alt="hero" height={600} width={600}/>
         </div>
         {authModal.isOpen && <AuthModal/>}
         </div>

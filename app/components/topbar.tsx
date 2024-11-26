@@ -38,7 +38,7 @@ const Topbar: React.FC<Props> = ({ProblemPage}) => {
         <div className='bg-gradient-to-b from-gray-800 to-gray-600 p-1'>
             <div className='flex items-center justify-between mx-20 mr-20 p-2'>
         <Link rel="stylesheet" href="/" className='flex'>
-        <Image src="/om.svg" className="h-12 w-12 object-cover" alt="OM symbol" />
+        <Image src="/om.svg" className="h-12 w-12 object-cover" width={100} height={100} alt="OM symbol" />
 
             <div className="bg-cover bg-center w-10 h-10 mt-1.5">
     <svg
@@ -53,7 +53,7 @@ const Topbar: React.FC<Props> = ({ProblemPage}) => {
         />
     </svg>
 </div>
-     <div className='font-mono text-yellow-200 text-2xl hover:text-3xl transition duration-3x00 ease-in-out mt-2'>LeetCode</div>
+     <div className='font-mono text-yellow-200 text-2xl mt-2 animate-fade-left animate-delay-500'>CodeJunkie</div>
      <div className='flex flex-col items-center'>
      </div>
        </Link>
