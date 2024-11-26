@@ -1,4 +1,4 @@
-import { problems,DBProblem } from "@/app/mockProblems/problem"
+import { DBProblem } from "@/app/mockProblems/problem"
 import react, { use, useEffect, useState } from "react"
 import { LuPanelTopClose } from "react-icons/lu";
 import { BsCheckCircle } from "react-icons/bs";
@@ -27,7 +27,7 @@ const ProblemTable:React.FC<ProblemTableProps> = ({setLoading}) => {
                 setYoutube({isOpen:false,videoId:""})
             }
         })
-   },[])
+   },[setYoutube])
    const problems = useGetProblems(setLoading);
   return <>
       <tbody className="text-white">

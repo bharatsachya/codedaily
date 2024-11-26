@@ -38,7 +38,7 @@ const Topbar: React.FC<Props> = ({ProblemPage}) => {
         <div className='bg-gradient-to-b from-gray-800 to-gray-600 p-1'>
             <div className='flex items-center justify-between mx-20 mr-20 p-2'>
         <Link rel="stylesheet" href="/" className='flex'>
-        <img src="/om.svg" className="h-12 w-12 object-cover" alt="OM symbol" />
+        <Image src="/om.svg" className="h-12 w-12 object-cover" alt="OM symbol" />
 
             <div className="bg-cover bg-center w-10 h-10 mt-1.5">
     <svg

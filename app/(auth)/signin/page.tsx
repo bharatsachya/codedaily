@@ -7,6 +7,7 @@ import { authModalState } from '@/app/atom/authModalAtom'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import {auth}from '@/app/firebase/firebase'
 import { useRouter } from 'next/navigation'
+import Image from 'next/image'
 import { useEffect } from 'react'
 export default function Signin() {
       const authModal = useRecoilValue(authModalState);   
@@ -24,7 +25,7 @@ export default function Signin() {
          <div className="max-w-7xl mx-auto">
          <Navbar/>
         <div className='flex items-center justify-center h-[calc(100vh-5rem)] pointer-events-none select-none animate-fade-left animate-delay-700'>
-              <img src="/hero.png" alt="hero" />
+              <Image src="/hero.png" alt="hero" />
         </div>
         {authModal.isOpen && <AuthModal/>}
         </div>
